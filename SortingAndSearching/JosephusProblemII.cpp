@@ -63,26 +63,20 @@ int main() {
         l = fix;
         r = fix + n;
 
-        int count = 1;
         while(sum != jump) { 
             int mid = (l+r)/2;
             sum = circle.sum(fix,mid > n ? mid%n : mid);
 
-            if(sum > jump) {
-                r = mid;
-            }
-            else if(sum < jump) {
-                l = mid;
-            }
-            else if(sum == jump && vivos[mid > n ? mid%n : mid]) {
-                fix = mid > n ? mid%n : mid;
-                break;
-            }
-            else {
+            if(sum > jump) r = mid;
+            else if(sum < jump) l = mid;
+            else if(sum == jump && !vivos[mid > n ? mid%n : mid]) {
                 sum = -1;
                 r = mid;
             }
-            count++;
+            else {
+                fix = mid > n ? mid%n : mid;
+                break;
+            }
         }
 
         if(i < n-1) cout << fix << " ";
